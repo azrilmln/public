@@ -1,0 +1,123 @@
+Program konverterSuhu
+
+Kamus
+    pilihan : integer
+    nilai, hasil : float
+    lanjut : string
+    dari, ke : string
+    celsius : float
+
+Algoritma
+    lanjut ← "y"
+
+    while (lanjut == "y" atau lanjut == "Y") do
+
+        Output("MENU KONVERSI")
+        Output("1. Celsius → Fahrenheit")
+        Output("2. Celsius → Kelvin")
+        Output("3. Fahrenheit → Celsius")
+        Output("4. Fahrenheit → Kelvin")
+        Output("5. Kelvin → Celsius")
+        Output("6. Kelvin → Fahrenheit")
+        Output("7. Keluar")
+        Output("Pilih menu: ")
+        Input(pilihan)
+
+        if pilihan == 7 then
+            Output("Terima kasih.")
+            break
+        endif
+
+        if pilihan < 1 atau pilihan > 7 then
+            Output("Error: pilihan tidak valid.")
+            continue
+        endif
+
+        Output("Masukkan nilai suhu: ")
+        Input(nilai)
+
+        if (pilihan == 5 atau pilihan == 6) dan (nilai < 0) then
+            Output("Error: Kelvin tidak boleh bernilai negatif.")
+            continue
+        endif
+
+        // Proses konversi
+        if pilihan == 1 then
+            hasil ← (nilai * 9/5) + 32
+            dari ← "°C"
+            ke ← "°F"
+
+        else if pilihan == 2 then
+            hasil ← nilai + 273.15
+            dari ← "°C"
+            ke ← "K"
+
+        else if pilihan == 3 then
+            hasil ← (nilai - 32) * 5/9
+            dari ← "°F"
+            ke ← "°C"
+
+        else if pilihan == 4 then
+            hasil ← (nilai - 32) * 5/9 + 273.15
+            dari ← "°F"
+            ke ← "K"
+
+        else if pilihan == 5 then
+            hasil ← nilai - 273.15
+            dari ← "K"
+            ke ← "°C"
+
+        else if pilihan == 6 then
+            hasil ← (nilai - 273.15) * 9/5 + 32
+            dari ← "K"
+            ke ← "°F"
+        endif
+
+        Output("Hasil: ", nilai, dari, " = ", hasil, ke)
+
+        // Mengubah nilai ke Celsius untuk analisis
+        if pilihan == 1 atau pilihan == 2 then
+            celsius ← nilai
+        else if pilihan == 3 atau pilihan == 4 then
+            celsius ← (nilai - 32) * 5/9
+        else
+            celsius ← nilai - 273.15
+        endif
+
+        // Analisis kategori suhu
+        if celsius <= -273.15 then
+            Output("Nol absolut.")
+        else if celsius < 0 then
+            Output("Di bawah titik beku air.")
+        else if celsius == 0 then
+            Output("Titik beku air.")
+        else if celsius < 20 then
+            Output("Suhu sejuk.")
+        else if celsius < 30 then
+            Output("Suhu ruangan normal.")
+        else if celsius < 37 then
+            Output("Suhu hangat.")
+        else if celsius < 40 then
+            Output("Suhu tubuh manusia.")
+        else if celsius == 100 then
+            Output("Titik didih air.")
+        else
+            Output("Suhu sangat panas.")
+        endif
+
+        // Fakta menarik
+        if (nilai == -40) dan (pilihan == 1 atau pilihan == 3) then
+            Output("Fakta: -40°C = -40°F.")
+        endif
+
+        if celsius == 37 then
+            Output("Fakta: suhu tubuh manusia normal.")
+        endif
+
+        Output("Konversi lagi? (y/n): ")
+        Input(lanjut)
+
+    endwhile
+
+Output("Program selesai.")
+endprogram
